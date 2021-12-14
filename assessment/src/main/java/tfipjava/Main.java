@@ -55,7 +55,7 @@ public class Main {
         while (true)
         {
             socket = serverSocket.accept();
-HttpServer serv=new HttpServer(socket);
+HttpServer serv=new HttpServer(socket,directory);
 threadPool.submit(serv);
         }
     }

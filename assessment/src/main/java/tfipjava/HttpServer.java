@@ -16,11 +16,14 @@ public class HttpServer implements Runnable{
     Socket sock;
     ServerSocket serverSocket;
     String FDirectory;
+    String n="/index.html";
     public HttpServer(Socket sock,String FileDirectory)
     {
         this.sock=sock;
         this.FDirectory=FileDirectory;
     }
+
+   
    
     
    public static void main(String[] args) {
@@ -39,7 +42,8 @@ public class HttpServer implements Runnable{
 
             if(!f.exists())
             {
-System.out.println("directory does not exist");
+                dos.writeUTF("directory does not exist");
+                dos.flush();
 serverSocket.close();
 }
 
@@ -47,12 +51,46 @@ String inputFromClient=dinps.readUTF();
 Scanner scanForGet=new Scanner(inputFromClient);
 String s=scanForGet.next();
 String afterGet=scanForGet.next().trim();
-if (s.equals("GET"))
+if (!s.equals("GET"))
+{
+    dos.writeUTF("HTTP/1.1 405 Method Not Allowed\r\n\r\n <method name> not supported\r\n");
+    dos.flush();
+}
+else if (s.equals("GET"))
 {
     File filecheck=new File(s+afterGet);
-if (filecheck.exists())
+if (!filecheck.exists())
 {
-    System.out.println("ok");
+    dos.writeUTF("HTTP/1.1 404 Not Found\r\n\r\n <resource name> not found\r\n");
+    dos.flush();
+    serverSocket.close();
+}
+else{
+    if (afterGet.equals("/"))
+        {
+File fileChecker=new File(n);
+if (fileChecker.exists())
+            {   
+            String str=new String("HTTP/1.1 200 OK\r\n\r\n <resource contents as bytes>");
+            dos.writeBytes(str);
+            dos.flush();
+        serverSocket.close();       
+    }
+
+        }
+        else
+        {
+            File filechecker =new File(afterGet);
+            if (filechecker.exists() && afterGet.toLowerCase().contains("png"))
+            {
+                dos.writeUTF("HTTP/1.1 200 OK\r\n\r\n <resopurce contents as bytes>");
+                dos.flush();
+                serverSocket.close();
+            }
+            
+        }
+
+
 }
 
 }
