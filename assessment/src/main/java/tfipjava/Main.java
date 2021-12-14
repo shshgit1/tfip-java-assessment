@@ -17,7 +17,7 @@ public class Main {
         Scanner scan=new Scanner(System.in);
         String inputOption= scan.next();
         String afterInput=scan.nextLine();
-       // HttpServer Serv=new HttpServer();
+  
       
         if (inputOption.equals("--port"))
         {
@@ -30,13 +30,22 @@ try {
     {
         socket=serverSocket.accept();
         HttpServer serv=new HttpServer(socket);
-        
+        serv.run();
     }
+}
+finally {
+    serverSocket.close();
 }
 
         }
-    
 
+        else if (inputOption.equals("--docroot"))
+        {
+            String s=afterInput.trim();
+
+        }
+    
+    
     }
 
 }
