@@ -1,31 +1,24 @@
 body {
-    background-color: lightblue;
-  }
+}
+img 
+{
+  display:block;
+   align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  width:20vw;
+  top: 30em;
   
-  h1 {
-    color: navy;
-    margin-left: 20px;
-  }
-
+}
+.wrapper1{vertical-align: middle;
  
-.wrapper
-{
-    height: 40vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-   }
-   .wrapper1
-{
-    height: 5vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-   }
-   .wrapper2
-   {
-       height: 10vh;
-       display: flex;
-       flex-direction: column;
-       align-items: center; 
-      }
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  
+  vertical-align: middle;
+  width:20vw;
+  top: 20em;
+ text-align: center;
+
+}

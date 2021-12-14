@@ -53,6 +53,9 @@ if (s.equals("GET"))
 {
     File filecheck=new File(s+afterGet);
 if (filecheck.exists())
+{
+    System.out.println("ok");
+}
 
 }
 
@@ -61,6 +64,10 @@ if (filecheck.exists())
         catch(Exception e)
         {
 
+        }
+        finally
+        {
+            serverSocket.close();
         }
 
     }
