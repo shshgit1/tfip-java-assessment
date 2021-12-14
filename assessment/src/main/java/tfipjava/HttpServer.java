@@ -17,15 +17,14 @@ public class HttpServer implements Runnable{
     ServerSocket serverSocket;
     String FDirectory;
     String n="/index.html";
-    public HttpServer(Socket sock,String FileDirectory)
+    String[] moreFiles;
+    public HttpServer(Socket sock,String FileDirectory,String[] moreFiles)
     {
         this.sock=sock;
         this.FDirectory=FileDirectory;
+        this.moreFiles=moreFiles;
     }
 
-   
-   
-    
    public static void main(String[] args) {
        
    }
@@ -75,9 +74,8 @@ if (fileChecker.exists())
             dos.writeBytes(str);
             dos.flush();
         serverSocket.close();       
-    }
-
-        }
+  }
+  }
         else
         {
             File filechecker =new File(afterGet);
@@ -87,22 +85,16 @@ if (fileChecker.exists())
                 dos.flush();
                 serverSocket.close();
             }
-            
-        }
-
-
+                    }
 }
-
 }
         }
         catch(Exception e)
         {
-
+e.printStackTrace();
         }
-        finally
-        {
-            
+     
     }
     
 }
-}
+
