@@ -40,6 +40,7 @@ sock.close();
     catch (Exception exc)
     {
         System.out.println("client fail");
+        sock.close();
     }
 }
     

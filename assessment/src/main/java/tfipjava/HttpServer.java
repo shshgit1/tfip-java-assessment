@@ -16,14 +16,12 @@ public class HttpServer implements Runnable{
     Socket sock;
     ServerSocket serverSocket;
     String FDirectory;
-    public HttpServer(Socket sock)
+    public HttpServer(Socket sock,String FileDirectory)
     {
         this.sock=sock;
-    }
-    public HttpServer(String FileDirectory)
-    {
         this.FDirectory=FileDirectory;
     }
+   
     
    public static void main(String[] args) {
        
@@ -58,8 +56,6 @@ if (filecheck.exists())
 }
 
 }
-
-
         }
         catch(Exception e)
         {
@@ -67,9 +63,8 @@ if (filecheck.exists())
         }
         finally
         {
-            serverSocket.close();
-        }
-
+            
     }
     
+}
 }
