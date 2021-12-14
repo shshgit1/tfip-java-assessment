@@ -3,49 +3,48 @@ package tfipjava;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 public class Main {
+    public static void main(String[] args) throws IOException{
+        
+    String inputfromArgs;
     Socket socket;
-    ServerSocket serverSocket;
-    public static void main(String[] args) throws IOException {
-       Main newConnection=new Main();
-       newConnection.StartServer();
-    }
-    public void StartServer() throws IOException{
-        System.out.println("Welcome, key --port <port number> for port or --docroot <directory>");
-        Scanner scan=new Scanner(System.in);
-        String inputOption= scan.next();
-        String afterInput=scan.nextLine();
-  
-      
-        if (inputOption.equals("--port"))
+    int port=3000;
+    ServerSocket serverSocket;  
+    String directory="/static";
+             
+        if (args != null && args.length >= 1 && args[0].equals("--port"))
+       {     
+        port=Integer.valueOf(args[1]);
+        System.out.println(port);
+            }
+       else if (args != null && args.length >= 1 && args[0].equals("--docRoot"))
+       {
+           directory=args[1];
+           }       
+           else
+           {
+               System.out.println("please retry");
+
+           } 
+           ExecutorService threadPool = Executors.newFixedThreadPool(3);
+        serverSocket = new ServerSocket(port);
+        System.out.println("Server listening at port..." +port);
+        try{
+        while (true)
         {
-            int x=Integer.parseInt(afterInput.trim());
-            System.out.println(x);
-            serverSocket=new ServerSocket(x);
-                       System.out.println("listening to port "+x);
-try {
-    while (true)
-    {
-        socket=serverSocket.accept();
-        HttpServer serv=new HttpServer(socket);
-        serv.run();
-    }
-}
-finally {
-    serverSocket.close();
-}
-
+            socket = serverSocket.accept();
+HttpServer serv=new HttpServer(socket);
+threadPool.submit(serv);
         }
-
-        else if (inputOption.equals("--docroot"))
+    }
+        finally
         {
-            String s=afterInput.trim();
-
+            serverSocket.close();  
         }
-    
-    
-    }
+}
 
 }
